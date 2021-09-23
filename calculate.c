@@ -1,94 +1,108 @@
 #include "monty.h"
+
 /**
- * _add - adds the top two elements in stack
- * @h: top node
- * @line_number: node number
+ * add - adds the top two in stack
+ * @stack: doubly linked list
+ * @line_number: the line
+ *
+ * Return: Nothing.
  */
-void _add(stack_t **h, unsigned int line_number)
+void add(stack_t **stack, unsigned int line_number)
 {
-	if (*h == NULL || (*h)->next == NULL)
+	if (!*stack || !(*stack)->next)
 	{
-		printf("L%u: can't add, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't add, stack too short\n", line_number);
+		cleaner();
 		exit(EXIT_FAILURE);
 	}
-	(*h)->next->n += (*h)->n;
-	(*h) = (*h)->next;
-	free((*h)->prev);
-	(*h)->prev = NULL;
+	(*stack)->next->n += (*stack)->n;
+	delete_dnodeint_at_index(stack, 0);
 }
+
 /**
- * _sub - subtract second node from top node
- * @h: top of list
- * @line_number: line of command
+ * sub - subtracts the top two in stack
+ * @stack: doubly linked list
+ * @line_number: the line
+ *
+ * Return: Nothing.
  */
-void _sub(stack_t **h, unsigned int line_number)
+void sub(stack_t **stack, unsigned int line_number)
 {
-	if (*h == NULL || (*h)->next == NULL)
+	if (!*stack || !(*stack)->next)
 	{
-		printf("L%u: can't sub, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't sub, stack too short\n", line_number);
+		cleaner();
 		exit(EXIT_FAILURE);
 	}
-	(*h)->next->n -= (*h)->n;
-	(*h) = (*h)->next;
-	free((*h)->prev);
-	(*h)->prev = NULL;
+	(*stack)->next->n -= (*stack)->n;
+	delete_dnodeint_at_index(stack, 0);
 }
+
 /**
- * _mul - multiply second node and top node
- * @h: top of list
- * @line_number: line of command
+ * mul - find product of top 2 in stack
+ * @stack: doubly linked list
+ * @line_number: the line
+ *
+ * Return: Nothing.
  */
-void _mul(stack_t **h, unsigned int line_number)
+void mul(stack_t **stack, unsigned int line_number)
 {
-	if (*h == NULL || (*h)->next == NULL)
+	if (!*stack || !(*stack)->next)
 	{
-		printf("L%u: can't mul, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't mul, stack too short\n", line_number);
+		cleaner();
 		exit(EXIT_FAILURE);
 	}
-	(*h)->next->n *= (*h)->n;
-	(*h) = (*h)->next;
-	free((*h)->prev);
-	(*h)->prev = NULL;
+	(*stack)->next->n *= (*stack)->n;
+	delete_dnodeint_at_index(stack, 0);
 }
+
 /**
- * _div - divide second node from top node
- * @h: top of list
- * @line_number: line of command
+ * divide - divdid top 2 in stack
+ * @stack: doubly linked list
+ * @line_number: the line
+ *
+ * Return: Nothing.
  */
-void _div(stack_t **h, unsigned int line_number)
+void divide(stack_t **stack, unsigned int line_number)
 {
-	if (*h == NULL || (*h)->next == NULL)
+	if (!*stack || !(*stack)->next)
 	{
-		printf("L%u: can't div, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't div, stack too short\n", line_number);
+		cleaner();
 		exit(EXIT_FAILURE);
 	}
-	if ((*h)->n == 0 || (*h)->next->n == 0)
+	if ((*stack)->n == 0)
 	{
-		printf("L%u: division by zero\n", line_number);
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		cleaner();
+		exit(EXIT_FAILURE);
 	}
-	(*h)->next->n /= (*h)->n;
-	(*h) = (*h)->next;
-	free((*h)->prev);
-	(*h)->prev = NULL;
+	(*stack)->next->n /= (*stack)->n;
+	delete_dnodeint_at_index(stack, 0);
 }
+
 /**
- * _mod - mod second node from top node
- * @h: top of list
- * @line_number: line of command
+ * mod- mod of the top 2 in stack
+ * @stack: doubly linked list
+ * @line_number: the line
+ *
+ * Return: Nothing.
  */
-void _mod(stack_t **h, unsigned int line_number)
+void mod(stack_t **stack, unsigned int line_number)
 {
-	if (h == NULL || *h == NULL)
+	if (!*stack || !(*stack)->next)
 	{
-		printf("L%u: can't mod, stack too short\n", line_number);
+		fprintf(stderr, "L%u: can't mod, stack too short\n", line_number);
+		cleaner();
 		exit(EXIT_FAILURE);
 	}
-	if ((*h)->n == 0 || (*h)->next->n == 0)
+	if ((*stack)->n == 0)
 	{
-		printf("L%u: division by zero\n", line_number);
+		fprintf(stderr, "L%u: division by zero\n", line_number);
+		cleaner();
+		exit(EXIT_FAILURE);
 	}
-	(*h)->next->n %= (*h)->n;
-	(*h) = (*h)->next;
-	free((*h)->prev);
-	(*h)->prev = NULL;
+	(*stack)->next->n %= (*stack)->n;
+	delete_dnodeint_at_index(stack, 0);
 }
